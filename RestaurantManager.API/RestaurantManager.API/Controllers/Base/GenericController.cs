@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantManager.API.DTO.Base;
 using RestaurantManager.Business.Definitions.Base;
@@ -25,6 +26,7 @@ namespace RestaurantManager.API.Controllers.Base
         }
 
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<N>>> GetAll(int? startIndex, int? size)
@@ -35,6 +37,7 @@ namespace RestaurantManager.API.Controllers.Base
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -59,6 +62,7 @@ namespace RestaurantManager.API.Controllers.Base
         }
 
         [HttpPost]
+        [Authorize(Roles = "CUSTOMER")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -78,6 +82,7 @@ namespace RestaurantManager.API.Controllers.Base
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "CUSTOMER")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -104,6 +109,7 @@ namespace RestaurantManager.API.Controllers.Base
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "MANAGER")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

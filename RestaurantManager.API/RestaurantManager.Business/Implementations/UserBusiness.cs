@@ -10,5 +10,13 @@ namespace RestaurantManager.Business.Implementations
         public UserBusiness(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
+
+        public async Task<User> Authenticate(string login, string password)
+        {
+            var user = await Repository.Get(expression: query => query.Login.Equals(login)
+                                                     && query.Password.Equals(password));
+            return user;
+        }
+
     }
 }

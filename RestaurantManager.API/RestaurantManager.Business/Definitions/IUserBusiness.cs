@@ -5,5 +5,6 @@ namespace RestaurantManager.Business.Definitions
 {
     public interface IUserBusiness : IGenericBusiness<User>
     {
+        Task<User> Authenticate(string login, string password);
     }
 }
